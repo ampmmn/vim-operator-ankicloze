@@ -1,5 +1,5 @@
 " operator-ankicloze - Operator to surround text for Anki cloze deletion.
-" Version: 0.0.1
+" Version: 0.0.2
 " Copyright (C) 2016 id:ampmmn <https://github.com/ampmmn>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining

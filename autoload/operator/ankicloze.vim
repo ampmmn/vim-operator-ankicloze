@@ -1,5 +1,5 @@
 " operator-ankicloze - Operator to surround text for Anki cloze deletion.
-" Version: 0.0.1
+" Version: 0.0.2
 " Copyright (C) 2016 id:ampmmn <https://github.com/ampmmn>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -26,9 +26,10 @@ let s:clozeNo=1
 
 function! operator#ankicloze#do(motion_wise)
 
-
-	let spos = getpos("'<")
-	let epos = getpos("'>")
+	normal! `[
+	let spos = getpos(".")
+	normal! `]
+	let epos = getpos(".")
 
 	if spos[2] > epos[2] || (spos[2] == epos[2] && spos[1] > epos[1])
 		let tmppos = spos
@@ -36,7 +37,11 @@ function! operator#ankicloze#do(motion_wise)
 		let epos = tmppos
 	endif
 
-	if a:motion_wise ==# 'char' || a:motion_wise ==# 'line'
+	if a:motion_wise ==# 'char'
+		call s:insert_cloze_tag(spos, epos, s:clozeNo)
+	elseif a:motion_wise ==# 'line'
+		normal! $
+		let epos = getpos(".")
 		call s:insert_cloze_tag(spos, epos, s:clozeNo)
 	elseif a:motion_wise ==# 'block'
 		let sline = spos[1] < epos[1] ? spos[1] : epos[1]
